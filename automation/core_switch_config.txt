@@ -1,0 +1,106 @@
+! Core Switch Configuration
+enable
+configure terminal
+hostname Core-Switch-A
+
+! Enable inter-VLAN routing
+ip routing
+
+! VTP Configuration (Optional, set to transparent for manual VLANs)
+vtp mode transparent
+
+! Create VLANs
+vlan 10
+ name Student-WiFi
+vlan 20
+ name Faculty-Admin
+vlan 30
+ name ERP-Servers
+vlan 40
+ name Exam-System
+vlan 50
+ name IoT-Lab
+vlan 60
+ name CCTV-Surveillance
+
+! Configure SVI (Default Gateways for VLANs)
+interface vlan 10
+ ip address 192.168.10.1 255.255.255.0
+ no shutdown
+!
+interface vlan 20
+ ip address 192.168.20.1 255.255.255.0
+ no shutdown
+!
+interface vlan 30
+ ip address 192.168.30.1 255.255.255.0
+ no shutdown
+!
+interface vlan 40
+ ip address 192.168.40.1 255.255.255.0
+ no shutdown
+!
+interface vlan 50
+ ip address 192.168.50.1 255.255.255.0
+ no shutdown
+!
+interface vlan 60
+ ip address 192.168.60.1 255.255.255.0
+ no shutdown
+
+! Configure DHCP Server for VLANs
+ip dhcp excluded-address 192.168.10.1 192.168.10.10
+ip dhcp pool STUDENT_POOL
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 8.8.8.8
+
+! Access Control Lists (Security & Isolation)
+! Block Students from Exam & ERP
+ip access-list extended STUDENT_ACL
+ deny ip 192.168.10.0 0.0.0.255 192.168.30.0 0.0.0.255
+ deny ip 192.168.10.0 0.0.0.255 192.168.40.0 0.0.0.255
+ permit ip any any
+
+interface vlan 10
+ ip access-group STUDENT_ACL in
+
+! QoS Configuration (4-level Priority)
+! 1. Define Traffic Classes
+class-map match-all EXAM_CLASS
+ match access-group name EXAM_TRAFFIC
+class-map match-all ERP_CLASS
+ match access-group name ERP_TRAFFIC
+class-map match-all IOT_CLASS
+ match access-group name IOT_TRAFFIC
+
+ip access-list extended EXAM_TRAFFIC
+ permit ip any 192.168.40.0 0.0.0.255
+ip access-list extended ERP_TRAFFIC
+ permit ip any 192.168.30.0 0.0.0.255
+ip access-list extended IOT_TRAFFIC
+ permit ip any 192.168.50.0 0.0.0.255
+
+! 2. Create Policy Map
+policy-map SMART_CAMPUS_QOS
+ class EXAM_CLASS
+  priority percent 40
+ class ERP_CLASS
+  bandwidth percent 30
+ class IOT_CLASS
+  bandwidth percent 10
+ class class-default
+  fair-queue
+
+! 3. Apply Policy to Uplink (example port Gi0/1 connected to router)
+interface GigabitEthernet0/1
+ service-policy output SMART_CAMPUS_QOS
+
+! Uplink Trunks to Distribution Switches
+interface range GigabitEthernet1/0 - 1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ no shutdown
+
+end
+write memory
