@@ -1,0 +1,269 @@
+
+# 🛡️ A VLAN-Based AI Surveillance System
+
+**Smart Campus Security | Network Segmentation | AI-Based Person Detection**
+
+## 📌 About the Project
+
+Smart campuses use CCTV cameras, computers, and network-connected devices to improve safety and security. However, connecting all devices to the same network can create security risks and make network management difficult.
+
+This project combines **Virtual Local Area Networks (VLANs)** and **Artificial Intelligence (AI)** to support secure and intelligent campus surveillance.
+
+The system separates user devices and surveillance cameras into different VLANs. It also uses YOLOv8, OpenCV, and Python for AI-based person detection and supports alerts for predefined surveillance events.
+
+## 🎯 Objectives
+
+- Separate user devices and surveillance cameras using VLANs.
+- Improve network isolation and surveillance network management.
+- Detect people in surveillance footage using AI.
+- Generate alerts for predefined surveillance events.
+- Analyze network traffic using Wireshark.
+- Design a scalable and cost-effective smart campus security framework.
+
+## 🚨 Problem Statement
+
+Traditional campus surveillance systems often depend on continuous manual monitoring. When cameras and user devices share the same network, surveillance traffic and unauthorized access can become security concerns.
+
+A secure and intelligent monitoring solution is needed to separate network traffic, detect people in surveillance footage, and help security staff identify important events more efficiently.
+
+## 💡 Proposed Solution
+
+The proposed solution combines VLAN-based network segmentation with AI-powered person detection.
+
+1. Create separate VLANs for user devices and surveillance cameras.
+2. Connect the network to an AI surveillance server.
+3. Process video footage using Python, OpenCV, and YOLOv8.
+4. Detect people in surveillance footage.
+5. Apply predefined rules for restricted-area or off-hours monitoring.
+6. Display surveillance information and alerts through a security dashboard.
+7. Use Wireshark to analyze network traffic and verify network behavior.
+
+**Note:** VLANs provide network separation. ACLs or firewall rules are needed to enforce restrictions on communication between network segments.
+
+## 🏗️ System Architecture
+
+```text
+                   INTERNET
+                      |
+                    ROUTER
+                      |
+                NETWORK SWITCH
+                  /         \
+                 /           \
+           VLAN USER       VLAN CAMERA
+               |                 |
+         User Devices       CCTV Cameras
+                 \            /
+                  \          /
+              AI SURVEILLANCE
+                   SERVER
+                      |
+              SECURITY DASHBOARD
+                      |
+             ALERTS AND MONITORING
+```
+
+The architecture separates regular user traffic from camera traffic and connects surveillance processing to an AI server and monitoring dashboard.
+
+## ✨ Key Features
+
+- **VLAN-Based Segmentation:** Separates user and camera network traffic.
+- **AI Person Detection:** Uses YOLOv8 to detect people in video footage.
+- **Event-Based Alerts:** Supports alerts for configured monitoring rules.
+- **Restricted-Area Monitoring:** Can flag person detections in configured restricted areas.
+- **Off-Hours Monitoring:** Can identify person detections during specified monitoring hours.
+- **Network Traffic Analysis:** Uses Wireshark to inspect network communication.
+- **Security Dashboard:** Provides a centralized view of surveillance information and alerts.
+- **Scalable Architecture:** Can be extended to support additional cameras and monitoring rules.
+
+*Feature availability depends on the modules implemented and the system configuration.*
+
+## 🧰 Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | AI processing and application logic |
+| OpenCV | Video processing |
+| YOLOv8 | AI-based person detection |
+| VLAN | Network segmentation |
+| Router and Switch | Network connectivity |
+| Wireshark | Network traffic analysis |
+| Cisco Packet Tracer / GNS3 | Network design and simulation |
+| Security Dashboard | Displaying monitoring information and alerts |
+
+## 🔄 How It Works
+
+1. **Network Setup:** User devices and surveillance cameras are assigned to separate VLANs.
+2. **Video Processing:** The AI surveillance server receives or accesses camera footage.
+3. **Person Detection:** YOLOv8 analyzes the footage and detects people.
+4. **Rule Checking:** The application checks configured conditions, such as restricted areas or off-hours.
+5. **Alert Generation:** The system generates an alert when a defined rule is triggered.
+6. **Dashboard Monitoring:** Security staff can review available surveillance information.
+7. **Network Verification:** Wireshark and network testing tools help verify traffic behavior and segmentation.
+
+## 📊 Expected Outcomes
+
+- Demonstration of VLAN-based network segmentation.
+- AI-based person detection from surveillance video.
+- A dashboard for monitoring information and configured alerts.
+- Network traffic analysis and verification.
+- A foundation for secure and intelligent campus surveillance.
+
+## 🌍 Expected Impact
+
+The project aims to improve network isolation, support efficient surveillance monitoring, and reduce dependence on continuous manual observation.
+
+It provides a practical framework that can be adapted to educational institutions and other environments requiring network security and video monitoring.
+
+Actual detection accuracy and security improvements must be established through testing.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Prepare the following components according to the modules you want to run:
+
+- Python 3
+- OpenCV
+- YOLOv8-compatible model and dependencies
+- Webcam or sample video for person detection
+- Cisco Packet Tracer or GNS3 for network simulation
+- Wireshark for network traffic analysis
+
+### 1. Clone the Repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd <YOUR_PROJECT_FOLDER>
+```
+
+Replace the placeholders with your actual repository URL and folder name.
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+**Windows:**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux:**
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+If the repository contains a `requirements.txt` file, run:
+
+```bash
+pip install -r requirements.txt
+```
+
+Otherwise, install the dependencies required by your implemented modules. For example:
+
+```bash
+pip install ultralytics opencv-python
+```
+
+### 4. Run the Application
+
+Run the entry-point script provided in your project.
+
+For example, if your main Python file is named `main.py`:
+
+```bash
+python main.py
+```
+
+**Important:** These are example commands. Update the filenames, dependencies, and execution steps to match your actual project.
+
+## 📁 Suggested Project Structure
+
+```text
+smart-campus-ai-surveillance/
+│
+├── README.md
+├── requirements.txt
+│
+├── network/
+│   ├── topology.png
+│   └── network_configuration.md
+│
+├── ai_surveillance/
+│   ├── person_detection.py
+│   └── models/
+│
+├── dashboard/
+│
+├── screenshots/
+│   ├── network_topology.png
+│   └── dashboard.png
+│
+└── docs/
+    └── project_report.pdf
+```
+
+This is a suggested structure. Update it to match the files and folders actually present in your repository.
+
+## 🧪 Testing and Evaluation
+
+The following tests can be used to evaluate the system:
+
+- **VLAN Isolation Test:** Verify that devices are assigned to the intended VLANs.
+- **Access Control Test:** Check whether ACLs or firewall rules block unauthorized inter-VLAN communication.
+- **Person Detection Test:** Test the AI model using sample video footage.
+- **Event Rule Test:** Verify alerts for configured restricted-area and off-hours conditions.
+- **Network Traffic Test:** Inspect network traffic using Wireshark.
+- **Dashboard Test:** Check whether detection results and alerts appear correctly.
+
+Record actual test results before reporting performance or security improvements.
+
+## 🔮 Future Enhancements
+
+- Support multiple camera streams.
+- Improve person detection under different lighting conditions.
+- Add secure login and role-based access control.
+- Store alert history with timestamps.
+- Add email or mobile notifications.
+- Introduce more advanced event detection.
+- Improve network access control and security logging.
+- Measure detection accuracy and system performance.
+
+## 🔐 Security and Privacy
+
+- Configure ACLs or firewall rules in addition to VLAN separation.
+- Protect dashboard credentials and configuration files.
+- Never upload passwords, API keys, or private camera footage to GitHub.
+- Use authorized camera feeds and follow applicable privacy requirements.
+- Test the system in a controlled environment before deployment.
+
+## 👨‍🎓 Project Information
+
+- **Project Title:** A VLAN-Based AI Surveillance Framework for Secure Smart Campus Network Monitoring
+- **Domain:** Cybersecurity, Computer Networks, and Artificial Intelligence
+- **Project Type:** Academic / Smart Campus Security
+- **Core Technologies:** VLAN, Python, OpenCV, YOLOv8, Wireshark
+
+## 🤝 Contributions
+
+Suggestions and contributions that improve network security, AI detection, documentation, and testing are welcome.
+
+Please explain your proposed changes clearly and test them before submitting a pull request.
+
+## 📜 License
+
+Choose an appropriate open-source license before distributing this project.
+
+If you choose the MIT License, add a `LICENSE` file containing the complete MIT License text.
+
+---
+
+<p align="center">
+  <b>Building a Safer and Smarter Campus Through Network Security and AI</b>
+</p>
